@@ -2,3 +2,4 @@ fourier.exe
 fourierOut.txt
 stepOut.txt
 .vscode/
+bin/
