@@ -17,6 +17,7 @@ double *file_read (char *filename, int *ar_size) {
         fclose(ptr_f);
     } else {
         printf("Error! File \"%s\" not found!\n", filename);
+        ar = NULL;
     }
 
     return ar;
