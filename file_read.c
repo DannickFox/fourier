@@ -4,7 +4,7 @@
 #define STRLEN 8
 
 double *file_read (char *filename, int *ar_size) {
-    // reads a file of floating point numbers.
+    // Reads a file of floating point numbers.
     *ar_size = 0;
     FILE *ptr_f;
     char s_val[STRLEN];
