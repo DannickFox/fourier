@@ -1,5 +1,6 @@
 // file_gen.c
 // Output file generator.
+
 void file_gen (char *f_name, int ar_len, double *ar) {
     FILE *f;
     if (f = fopen(f_name, "w")) {
