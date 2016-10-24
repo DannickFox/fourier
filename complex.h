@@ -32,3 +32,11 @@ double c_ang (complex x) {
     double ang = atan(x.im / x.re);
     return ang;
 }
+
+double ret_Re (complex A) {
+    return A.re;
+}
+
+double ret_Im (complex A) {
+    return A.im;
+}
