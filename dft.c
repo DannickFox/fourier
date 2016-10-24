@@ -1,5 +1,5 @@
 // dft.c
-// applies the direct fourier transform algorithm.
+// Applies the direct fourier transform algorithm.
 
 complex f_sum (int n, int N, double *x) {
     complex sum = {re: 0, im: 0};
