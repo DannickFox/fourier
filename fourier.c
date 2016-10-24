@@ -17,7 +17,7 @@ int main (int argc, char **argv) {
     if (argc > 1) {
         if (sig = file_read(argv[1], &N)) {
             if (x = directFourier(N, sig)) {
-                c_map_file_gen("fourierOut", N, x, c_mag);
+                c_map_file_gen("fourierOut", N, x, ret_Re);
                 free(x);
             }
             free(sig);
