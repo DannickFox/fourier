@@ -1,7 +1,7 @@
 // file_read.c
 // input file reader
 
-#define STRLEN 8
+#define STRLEN 20
 
 double *file_read (char *filename, int *ar_size) {
     // Reads a file of floating point numbers.
@@ -19,6 +19,7 @@ double *file_read (char *filename, int *ar_size) {
         fclose(ptr_f);
     } else {
         printf("Error! File \"%s\" not found!\n", filename);
+        free(ar);
         ar = NULL;
     }
 
