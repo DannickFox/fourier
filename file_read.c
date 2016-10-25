@@ -1,7 +1,7 @@
 // file_read.c
 // input file reader
 
-#define STRLEN 20
+#define STRLEN 100
 
 double *file_read (char *filename, int *ar_size) {
     // Reads a file of floating point numbers.
