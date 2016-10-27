@@ -1,21 +1,36 @@
 // dft.c
 // Applies the direct fourier transform algorithm.
 
-complex f_sum (int n, int N, double *x) {
-    complex sum = {re: 0, im: 0};
+complex **gen_W (int N) {
+    // Generate W matrix.
+    int n, k;
     double alpha;
-    for (int k = 0; k < N; k++) {
-        alpha = -2 * M_PI * n * k / N;
-        sum.re += x[k] * cos(alpha);
-        sum.im += x[k] * sin(alpha);
+    complex **W = malloc(N * sizeof(complex *));
+
+    for (n = 0; n < N; n++) {
+        W[n] = malloc(N * sizeof(complex));
+        for (k = 0; k < N; k++) {
+            alpha = -2 * M_PI * n * k / N;
+            W[n][k] = (complex) {re: cos(alpha), im: sin(alpha)};
+        }
     }
-    return sum;
+    return W;
 }
 
 complex *directFourier (int N, double *x) {
-    complex *DFT = malloc(sizeof(complex) * N);
-    for (int n = 0; n < N; n++) {
-        DFT[n] = f_sum(n, N, x);
+    // Apply direct discrete Fourier Transform.
+    complex *X = malloc(sizeof(complex) * N);
+    complex **W = gen_W(N);
+    int n, k;
+
+    for (n = 0; n < N; n++) {
+        X[n] = (complex) {re: 0, im: 0};
+        for (k = 0; k < N; k++) {
+            X[n] = c_sum(X[n], c_scale(x[k], W[n][k]));
+        }
     }
-    return DFT;
+    for (int i = 0; i < N; i++) {
+        free (W[i]);
+    } free(W);
+    return X;
 }
