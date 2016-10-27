@@ -17,10 +17,9 @@ complex **gen_W (int N) {
     return W;
 }
 
-complex *directFourier (int N, double *x) {
+complex *directFourier (int N, double *x, complex **W) {
     // Apply direct discrete Fourier Transform.
     complex *X = malloc(sizeof(complex) * N);
-    complex **W = gen_W(N);
     int n, k;
 
     for (n = 0; n < N; n++) {
@@ -29,8 +28,5 @@ complex *directFourier (int N, double *x) {
             X[n] = c_sum(X[n], c_scale(x[k], W[n][k]));
         }
     }
-    for (int i = 0; i < N; i++) {
-        free (W[i]);
-    } free(W);
     return X;
 }
