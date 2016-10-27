@@ -1,36 +1,47 @@
 // complex.h
-// complex numbers
+// Complex number functions.
 
 typedef struct complex {
     double re, im;
 } complex;
 
-complex c_sum(complex a, complex b) {
+complex c_neg (complex a) {
+    // negates the complex number.
+    return (complex) {
+        re: -a.re,
+        im: -a.im
+    };
+}
+
+complex c_sum (complex a, complex b) {
     // a + b = (x + jy) + (q + jp)
-    complex sum = {
+    return (complex) {
         re: a.re + b.re,
         im: a.im + b.im
     };
-    return sum;
 }
 
-complex c_mul(complex a, complex b) {
+complex c_mul (complex a, complex b) {
     // a * b = (x + jy) * (q + jp)
-    complex mul = {
+    return (complex) {
         re: a.re * b.re - a.im * b.im,
         im: a.re * b.im + a.im * b.re
     };
-    return mul;
+}
+
+complex c_scale (double x, complex A) {
+    return (complex) {
+        re: A.re * x,
+        im: A.im * x
+    };
 }
 
 double c_mag (complex x) {
-    double mag = sqrt(x.re * x.re + x.im * x.im);
-    return mag;
+    return sqrt(x.re * x.re + x.im * x.im);
 }
 
 double c_ang (complex x) {
-    double ang = atan(x.im / x.re);
-    return ang;
+    return atan(x.im / x.re);
 }
 
 double ret_Re (complex A) {
