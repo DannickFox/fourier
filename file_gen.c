@@ -2,6 +2,7 @@
 // Output file generator.
 
 void file_gen (char *f_name, int ar_len, double *ar) {
+    // Print array to output file.
     FILE *f;
     if (f = fopen(f_name, "w")) {
         for (int i = 0; i < ar_len; i++) {
@@ -15,6 +16,7 @@ void file_gen (char *f_name, int ar_len, double *ar) {
 }
 
 void c_map_file_gen (char *f_name, int ar_len, complex *ar, double (*fcn)(complex)) {
+    // Map complex array to output file.
     FILE *f;
     if (f = fopen(f_name, "w")) {
         for (int i = 0; i < ar_len; i++) {
