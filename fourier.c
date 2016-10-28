@@ -12,19 +12,20 @@
 int main (int argc, char **argv) {
     int N;
     double *sig;
-    complex *FFT, *W;
+    complex *FT, *W;
 
     if (argc > 1) {
         sig = file_read(argv[1], &N);
         W = gen_fW(N);
 
         if (sig && W) {
-            c_map_file_gen("W_array", N, W, ret_Re);
+            FT = fastFourier(N, sig, W);
+            if (FT) c_map_file_gen("fftOut", N, FT, ret_Re);
         } else printf("Memory error!");
 
         free(sig);
         free(W);
-        free(FFT);
+        free(FT);
     } else {
         printf("Error: No input file.\n");
     }
