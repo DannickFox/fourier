@@ -2,6 +2,7 @@
 // Fast fourier transform. (Radix-2 DIT)
 
 complex *gen_fW (int N) {
+    // Generate W array.
     complex *W = malloc(sizeof(complex) * N);
     double alpha;
     for (int n = 0; n < N; n++) {
@@ -16,6 +17,7 @@ complex *gen_fW (int N) {
 }
 
 complex *fastFourier(int N, double *x, complex *W) {
+    // Apply Fast Fourier Transform.
     complex *X = malloc(sizeof(complex) * N);
     return X;
 }
