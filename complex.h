@@ -36,6 +36,13 @@ complex c_scale (double x, complex A) {
     };
 }
 
+complex c_eul (double x) {
+    return (complex) {
+        re: cos(x),
+        im: sin(x)
+    };
+}
+
 double c_mag (complex x) {
     return sqrt(x.re * x.re + x.im * x.im);
 }

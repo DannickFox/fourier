@@ -8,7 +8,7 @@ complex *gen_fW (int N) {
     for (int n = 0; n < N; n++) {
         if (n < N / 2) {
             alpha = -2 * M_PI * n / N;
-            W[n] = (complex) {re: cos(alpha), im: sin(alpha)};
+            W[n] = c_eul(alpha);
         } else {
             W[n] = c_neg(W[n - N / 2]);
         }

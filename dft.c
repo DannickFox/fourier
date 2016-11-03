@@ -10,7 +10,7 @@ complex *gen_dW (int N) {
     for (n = 0; n < N; n++) {
         for (k = 0; k < N; k++) {
             alpha = -2 * M_PI * n * k / N;
-            W[N * n + k] = (complex) {re: cos(alpha), im: sin(alpha)};
+            W[N * n + k] = c_eul(alpha);
         }
     }
     return W;
