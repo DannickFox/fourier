@@ -24,6 +24,7 @@ complex *directFourier (int N, double *x, complex *W) {
     for (n = 0; n < N; n++) {
         X[n] = (complex) {re: 0, im: 0};
         for (k = 0; k < N; k++) {
+            // X[n] = X[n] + x[k] * W[n][k]
             X[n] = c_sum(X[n], c_scale(x[k], W[N * n + k]));
         }
     }
