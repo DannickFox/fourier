@@ -23,15 +23,20 @@ int main (int argc, char **argv) {
         if (sig && fW && dW) {
             printf("Sample size: %d elements.\n", N);
             FT = directFourier(N, sig, dW);
-            if (FT) c_map_file_gen("dftOut", N, FT, ret_Re);
+            if (FT) {
+                c_map_file_gen("dftOut", N, FT, ret_Re);
+                free(FT);
+            }
             FT = fastFourier(N, sig, fW);
-            if (FT) c_map_file_gen("fftOut", N, FT, ret_Re);
+            if (FT) {
+                c_map_file_gen("fftOut", N, FT, ret_Re);
+                free(FT);
+            }
         } else printf("Memory error!");
 
         free(sig);
         free(dW);
         free(fW);
-        free(FT);
     } else {
         printf("Error: No input file.\n");
     }
