@@ -24,23 +24,39 @@ int bitReverse (int N, int val) {
     return reversed;
 }
 
-void butterfly (int N, int n, int b, complex *X, complex *W) {
-    int m = 0;
-    X[n] = c_sum(X[n], X[n + b]);
-    X[n] = c_sum(X[n], c_mul(c_neg(W[m]), X[n + b]));
+void butterfly (int n, int b, complex W, complex *X) {
+    // Butterfly calculation. Values Xa and Xb temporarily hold current value.
+    complex Xa = X[n],
+            Xb = X[n + b];
+    X[n] = c_sum(Xa, c_mul(W, Xb));
+    X[n + b] = c_sub(Xa, c_mul(W, Xb));
 }
 
 complex *fastFourier(int N, double *x, complex *W) {
     // Apply Fast Fourier Transform. (Radix-2 DIT)
     complex *X = malloc(N * sizeof(complex));
-    int n, b, k;
-
-    for (b = 1; b < N; b <<= 1) {
-       for (n = 0; n < N; n += 1) {
-           if (b == 1) { // Initial division in time.
-               X[n] = (complex) {re: x[bitReverse(N, n)], im: 0};
+    int b, i, j;
+    
+    for (b = 1; b <= N; b <<= 1) {
+        printf("b = %i\n", b);
+        // log2(N) stage loop
+        for (i = 0; i < N; i += b) {
+           printf("[%i]", i);
+           if (b == 1) { // Time decimation.
+               X[i] = (complex) {re: x[bitReverse(N, i)], im: 0};
+               printf(":%.2lf: ", ret_Re(X[i]));
+           } else { // Butterfly calculation.
+               printf(" (");
+               for (j = 0; j < b >> 1; j++) {
+                   printf("%i:%i", j + i, j * bitReverse(N, b >> 1));
+                   if (j + 1 < b >> 1) printf(", ");
+                   butterfly(j + i, b >> 1, W[j * bitReverse(N, b >> 1)], X);
+               }
+               printf(") ");
            }
+           
        }
+       printf("\n");
     }
     return X;
 }
