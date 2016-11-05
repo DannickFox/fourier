@@ -21,6 +21,14 @@ complex c_sum (complex a, complex b) {
     };
 }
 
+complex c_sub (complex a, complex b) {
+    // a + b = (x + jy) + (q + jp)
+    return (complex) {
+        re: a.re - b.re,
+        im: a.im - b.im
+    };
+}
+
 complex c_mul (complex a, complex b) {
     // a * b = (x + jy) * (q + jp)
     return (complex) {
