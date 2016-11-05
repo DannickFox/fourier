@@ -26,6 +26,7 @@ int bitReverse (int N, int val) {
 
 void butterfly (int n, int b, complex W, complex *X) {
     // Butterfly calculation. Values Xa and Xb temporarily hold current value.
+    // Array X is directly manipulated.
     complex Xa = X[n],
             Xb = X[n + b];
     X[n] = c_sum(Xa, c_mul(W, Xb));
@@ -38,25 +39,19 @@ complex *fastFourier(int N, double *x, complex *W) {
     int b, i, j;
     
     for (b = 1; b <= N; b <<= 1) {
-        printf("b = %i\n", b);
         // log2(N) stage loop
         for (i = 0; i < N; i += b) {
-           printf("[%i]", i);
-           if (b == 1) { // Time decimation.
+           // DFT loops. 
+           if (b == 1) {
+               // Time decimation.
                X[i] = (complex) {re: x[bitReverse(N, i)], im: 0};
-               printf(":%.2lf: ", ret_Re(X[i]));
-           } else { // Butterfly calculation.
-               printf(" (");
+           } else {
+               // Butterfly calculation.
                for (j = 0; j < b >> 1; j++) {
-                   printf("%i:%i", j + i, j * bitReverse(N, b >> 1));
-                   if (j + 1 < b >> 1) printf(", ");
                    butterfly(j + i, b >> 1, W[j * bitReverse(N, b >> 1)], X);
                }
-               printf(") ");
-           }
-           
+           }   
        }
-       printf("\n");
     }
     return X;
 }
