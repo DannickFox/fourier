@@ -47,9 +47,11 @@ complex *fastFourier(int N, double *x, complex *W) {
                X[i] = (complex) {re: x[bitReverse(N, i)], im: 0};
            } else {
                // Butterfly calculation.
-               for (j = 0; j < b >> 1; j++) {
-                   butterfly(j + i, b >> 1, W[j * bitReverse(N, b >> 1)], X);
+               b >>= 1; // Temporarily adjust b to use in butterfly.
+               for (j = 0; j < b; j++) {
+                   butterfly(j + i, b, W[j * bitReverse(N, b)], X);
                }
+               b <<= 1; // Restore b value.
            }   
        }
     }
