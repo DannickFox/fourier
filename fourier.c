@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <time.h>
 
 #include "complex.h"
 #include "file_gen.c"
@@ -14,6 +15,7 @@ int main (int argc, char **argv) {
     int N;
     double *sig;
     complex *FT, *dW, *fW;
+    clock_t start, end;
 
     if (argc > 1) {
         sig = file_read(argv[1], &N);
@@ -22,13 +24,25 @@ int main (int argc, char **argv) {
 
         if (sig && fW && dW) {
             printf("Sample size: %d elements.\n", N);
+            start = clock();
             FT = directFourier(N, sig, dW);
+            end = clock();
             if (FT) {
+                printf(
+                    "DFT successfully excecuted in %lf ms.\n",
+                    (double) (end - start) * 1000 / CLOCKS_PER_SEC
+                );
                 c_map_file_gen("dftOut", N, FT, ret_Re);
                 free(FT);
             }
+            start = clock();
             FT = fastFourier(N, sig, fW);
+            end = clock();
             if (FT) {
+                printf(
+                    "FFT successfully excecuted in %lf ms.\n",
+                    (double) (end - start) * 1000 / CLOCKS_PER_SEC
+                );
                 c_map_file_gen("fftOut", N, FT, ret_Re);
                 free(FT);
             }
