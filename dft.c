@@ -4,13 +4,11 @@
 complex *gen_dW (int N) {
     // Generate W matrix.
     int n, k;
-    double alpha;
     complex *W = malloc(N * N * sizeof(complex));
 
     for (n = 0; n < N; n++) {
         for (k = 0; k < N; k++) {
-            alpha = -2 * M_PI * n * k / N;
-            W[N * n + k] = c_eul(alpha);
+            W[N * n + k] = c_eul(-2 * M_PI * n * k / N);
         }
     }
     return W;

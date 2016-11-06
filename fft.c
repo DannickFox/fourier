@@ -4,7 +4,6 @@
 complex *gen_fW (int N) {
     // Generate W array.
     complex *W = malloc(sizeof(complex) * N / 2);
-    double alpha;
     for (int n = 0; n < N / 2; n++) {
         W[n] = c_eul(-2 * M_PI * n / N);
     }
