@@ -25,17 +25,6 @@ int main (int argc, char **argv) {
         if (sig && fW && dW) {
             printf("Sample size: %d elements.\n", N);
             start = clock();
-            FT = directFourier(N, sig, dW);
-            end = clock();
-            if (FT) {
-                printf(
-                    "DFT successfully excecuted in %lf ms.\n",
-                    (double) (end - start) * 1000 / CLOCKS_PER_SEC
-                );
-                c_map_file_gen("dftOut", N, FT, ret_Re);
-                free(FT);
-            }
-            start = clock();
             FT = fastFourier(N, sig, fW);
             end = clock();
             if (FT) {
@@ -43,7 +32,7 @@ int main (int argc, char **argv) {
                     "FFT successfully excecuted in %lf ms.\n",
                     (double) (end - start) * 1000 / CLOCKS_PER_SEC
                 );
-                c_map_file_gen("fftOut", N, FT, ret_Re);
+                c_map_file_gen("fftOut", N, FT, c_mag);
                 free(FT);
             }
         } else printf("Memory error!");
